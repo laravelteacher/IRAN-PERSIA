@@ -14,7 +14,7 @@ class RegistrationController extends Controller
     }
 
     // Store Contact Form data
-    public function RegisterForm(Request $request) {
+   public function RegisterForm(Request $request) {
 
         // Form validation
         
@@ -29,6 +29,7 @@ class RegistrationController extends Controller
         ]);
        
 
+
         
         if ($validator->fails()) {
             return redirect('register')
@@ -37,9 +38,20 @@ class RegistrationController extends Controller
           }
         
 
-        $user = Contact::create(array_merge(
-                    $validator->validated()
-                ));
+        // $user = Contact::create(array_merge(
+        //             $validator->validated()
+        //         ));
+        $dateOfBirth = $request->post('dob');
+        $years = Carbon::parse($dateOfBirth)->age;
+       
+                $student = new Contact([
+                    'name' => $request->post('name'),
+                    'email'=> $request->post('email'),
+                    'dob' => $request->post('dob'),
+                    'age'=> $years,
+                    'qualification' => $request->post('qualification'),
+                ]);
+                $student->save();
         
         //
         return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
