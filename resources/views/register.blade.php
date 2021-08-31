@@ -29,12 +29,13 @@
         </div>
   
     @endif
-    
+    <!-- if email already to use alert error -->
     @if(Session::has('error'))
         <div class="alert alert-danger">
             {{Session::get('error')}}
         </div>
     @endif
+    <!-- if input empty give error to User -->
     @if ($errors->any())
   <div class="alert alert-danger">
      <ul>
@@ -92,4 +93,5 @@
 
 
 </html>
+
 
