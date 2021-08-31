@@ -18,6 +18,9 @@ class RegistrationController extends Controller
     // Store Contact Form data
     public function RegisterForm(Request $request) {
         // this is validator before store to start.. datas check 
+       
+        $messages = Contact::where('email' , $request->post('email'))->first();
+        if(!$messages){ 
        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required',
@@ -45,6 +48,9 @@ class RegistrationController extends Controller
         
         //
         return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
+    }else{
+        return back()->with('success', 'email already');
     }
 }
-
+    
+}
