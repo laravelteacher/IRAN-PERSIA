@@ -43,6 +43,7 @@ class RegistrationController extends Controller
                     'dob' => $request->post('dob'),
                     'age'=> $years,  // if Converted the Year come here to store 
                     'qualification' => $request->post('qualification'),
+                    'address' => $request->post('address'),
                 ]);
                 $student->save();
         
