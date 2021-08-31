@@ -23,7 +23,7 @@ class RegistrationController extends Controller
         if(!$messages){ 
          $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'dob' => 'required',
             'qualification' => 'required',
             'address' => 'required',
