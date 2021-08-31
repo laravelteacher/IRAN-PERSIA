@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -27,6 +28,12 @@
             {{Session::get('success')}}
         </div>
   
+    @endif
+    
+    @if(Session::has('error'))
+        <div class="alert alert-danger">
+            {{Session::get('error')}}
+        </div>
     @endif
     @if ($errors->any())
   <div class="alert alert-danger">
@@ -85,3 +92,4 @@
 
 
 </html>
+
