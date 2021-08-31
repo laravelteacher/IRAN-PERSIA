@@ -17,11 +17,11 @@ class RegistrationController extends Controller
 
     // Store Contact Form data
     public function RegisterForm(Request $request) {
-        // this is validator before store to start.. datas check 
-       
-        $messages = Contact::where('email' , $request->post('email'))->first();
+        // this is validator before store to start.. datas check  and if email already to use give error
+       $messages = Contact::where('email' , $request->post('email'))->first();
+       // if email didnt to use store datas
         if(!$messages){ 
-       $validator = Validator::make($request->all(), [
+         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required',
             'dob' => 'required',
@@ -48,8 +48,9 @@ class RegistrationController extends Controller
         
         //
         return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
-    }else{
-        return back()->with('success', 'email already');
+    }// if email alredy to use error
+    else{
+        return back()->with('error', 'email already to use');
     }
 }
     
