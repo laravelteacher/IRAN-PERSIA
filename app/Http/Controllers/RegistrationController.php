@@ -3,45 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
+use Validator; // this part show errors of input. i mean when have empty input Validator work to show that to User
 use App\Models\Contact;
-use Carbon\Carbon;
+use Carbon\Carbon; // i add it part to calculate automatic age; this part work from Laravel App
 
 class RegistrationController extends Controller
 {
-    //
+    // show the blade of register Form 
     public function createForm(Request $request) {
+
         return view('register');
     }
 
     // Store Contact Form data
-   public function RegisterForm(Request $request) {
-
-        // Form validation
-        
-
-        $validator = Validator::make($request->all(), [
+    public function RegisterForm(Request $request) {
+        // this is validator before store to start.. datas check 
+       $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required',
             'dob' => 'required',
-            'age' => 'required',
             'qualification' => 'required',
             'address' => 'required',
         ]);
-       
-
-
-        
-        if ($validator->fails()) {
+       if ($validator->fails()) {
             return redirect('register')
                      ->withErrors($validator)
                      ->withInput();
           }
-        
-
-        // $user = Contact::create(array_merge(
-        //             $validator->validated()
-        //         ));
+        // this part convert year to age
         $dateOfBirth = $request->post('dob');
         $years = Carbon::parse($dateOfBirth)->age;
        
@@ -49,7 +38,7 @@ class RegistrationController extends Controller
                     'name' => $request->post('name'),
                     'email'=> $request->post('email'),
                     'dob' => $request->post('dob'),
-                    'age'=> $years,
+                    'age'=> $years,  // if Converted the Year come here to store 
                     'qualification' => $request->post('qualification'),
                 ]);
                 $student->save();
@@ -58,3 +47,4 @@ class RegistrationController extends Controller
         return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
     }
 }
+
