@@ -59,10 +59,7 @@
             <input class="date form-control" name="dob"  type="text">
         </div>
 
-        <div class="form-group">
-            <label>Age</label>
-            <input type="text" class="form-control" name="age" id="subject">
-        </div>
+        
 
         <div class="form-group">
             <label>Qualification</label>
